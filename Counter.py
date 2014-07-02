@@ -4,8 +4,8 @@ import numpy as np
 import ctypes
 
 class Counter(Task):
-    def __init__(self):
-        self.name = bytes(self.getDeviceName()+"/ctr0",'utf-8')
+    def __init__(self,deviceName = ""):
+        self.name = bytes((deviceName if deviceName != "" else self.getDeviceName())+"/ctr0",'utf-8')
         Task.__init__(self)
         self.CreateCICountEdgesChan(self.name, b"", DAQmx_Val_Falling, 0, DAQmx_Val_CountUp)
     

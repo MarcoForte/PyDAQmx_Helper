@@ -8,18 +8,28 @@ from collections import OrderedDict
 #Small class to provide simplified reading to the analog ports using PyDAQmx package.
 class AtoD(Task):
     
-    def __init__(self):
-        self.name = self.getDeviceName() + "/ai"
+    def __init__(self,deviceName=""):
+        self.name = (deviceName if deviceName != "" else self.getDeviceName()) + "/ai"
         Task.__init__(self)
         self.channelsNum = 0
 
-    def addChannel(self,channel, mode=DAQmx_Val_RSE, minRange=-10.0, MaxRange=10.0):
-        self.CreateAIVoltageChan(bytes(self.name+str(channel),'utf-8'),b"",mode,minRange,MaxRange,DAQmx_Val_Volts,None)
-        self.channelsNum = self.channelsNum + 1
+    #def addChannel(self,channel, AtoD_mode=DAQmx_Val_RSE, minRange=-10.0, MaxRange=10.0):
+    #    self.CreateAIVoltageChan(bytes(self.name+str(channel),'utf-8'),b"",AtoD_mode,minRange,MaxRange,DAQmx_Val_Volts,None)
+    #   self.channelsNum = self.channelsNum + 1
      
      #Samples voltages at given rate from all channels, default, 10, 10
-    def sampleVoltages(self,nPointsPerChannel = 10, sampleRate = 10):
+     # Multiple Channels
+        #   Attempts to add non active channels warning user
+        #   Samples the voltage from all active channels
+        #   Zips them up together with channel name and value into a dictionary
+        #   Removes extra channels from dictionary that are not given active channels
+        #   Orders the dictionary like given at beggining and returns ordered dictionary
+    def sampleVoltages(self,nPointsPerChannel = 1, sampleRate = 1,*channels):
         read = int32()
+      
+       
+        requestedActiveChannels  = self.addChannels(*channels)
+        
         sample = numpy.zeros(self.channelsNum*nPointsPerChannel)
         
         self.CfgSampClkTiming(b"",sampleRate,DAQmx_Val_Rising,DAQmx_Val_FiniteSamps, 2 if nPointsPerChannel == 1 else nPointsPerChannel)
@@ -27,40 +37,25 @@ class AtoD(Task):
         self.ReadAnalogF64(nPointsPerChannel,-1,DAQmx_Val_GroupByChannel,sample, self.channelsNum*nPointsPerChannel,byref(read),None)
         self.StopTask()
         sample = list(AtoD.grouper(sample,nPointsPerChannel))
-        sample = dict(zip(self.getActiveChannels(),sample ))
+        sample = OrderedDict(zip(self.getActiveChannels(),sample ))
+        
+        if(requestedActiveChannels != []):
+            newSample = dict()
+            for key in sample:
+                if (key in requestedActiveChannels):
+                    newSample[key] = sample[key]
+            return OrderedDict(sorted(newSample.items(), key=lambda t: requestedActiveChannels.index(t[0])))
+        
         return sample
         
         
-        #Reads floating-point samples from a task
-        # Multiple Channels
-        #   Attempts to add non active channels warning user
-        #   Samples the voltage from all active channels
-        #   Zips them up together with channel name and value into a dictionary
-        #   Removes extra channels from dictionary that are not given active channels
-        #   Orders the dictionary like given at beggining and returns ordered dictionary
-    def readVoltage(self, *channels):
-        if(channels is not ()):
-            newChannels = self.addChannels(*channels,checkAdd = True)
-            if(self.getActiveChannels() != []):
-                sample = self.sampleVoltages(1,1)
-                sample = dict(zip(sample, map(lambda v:v[0], sample.values())))
-                newSample = dict()
-                for key in sample:
-                    if (key in newChannels):
-                        newSample[key] = sample[key]
-                return OrderedDict(sorted(newSample.items(), key=lambda t: newChannels.index(t[0])))
-            else:
-                return OrderedDict()
-             
-        if(self.channelsNum > 1):
-            print("Returning single read of all voltages given in order of when they were added")
-            return self.sampleVoltages(1, 1)
-        else:
-            voltage = c_double(0)
-            self.ReadAnalogScalarF64(-1,voltage,None)
-            return voltage.value
+    #Reads floating-point voltage from a task with one channel
+    def readVoltage(self):
+        voltage = c_double(0)
+        self.ReadAnalogScalarF64(-1,voltage,None)
+        return voltage.value
         
-    #Returns python list of channel numbers
+    # Returns python list of channel numbers
     # At the end correctly extracts channel number from returned string of active channels
     def getActiveChannels(self):
         #Allocate space for channels, simpler than getting exact right amount
@@ -68,8 +63,9 @@ class AtoD(Task):
         self.GetTaskChannels(activeChannels,300)
         if(activeChannels.value == b""):
             return []
-        activeChannels = list(map(lambda x:int(x[-1]) ,activeChannels.value.decode('utf-8').split(',')))
-        return activeChannels
+        else:
+            activeChannels = list(map(lambda x:int(x[-1]) ,activeChannels.value.decode('utf-8').split(',')))
+            return activeChannels
         
     
     
@@ -77,17 +73,16 @@ class AtoD(Task):
     ##### Adds multiple channels and returns from the inputted list those channels which are now active
     # removes duplicates and puts channels given into a list
     # loops through activating channels and depending on checkAdd asks the user or not to do so
-    def addChannels(self, *channels, checkAdd = False):
+    def addChannels(self, *channels, AtoD_mode=DAQmx_Val_Diff, minRange=-10.0, maxRange=10.0):
         activeChannels = self.getActiveChannels()
-        channels = list(set(channels))
         currentChannels = []
         for channel in channels :
             if(channel not in activeChannels):
-                if(( not checkAdd or strtobool(input("Channel no: " + str(channel) + " is not an activated channel would you like to activate it ([y],n)?") or "yes")) == True):
-                    self.addChannel(channel)
-                    currentChannels.append(channel)
-                    print("Activated Channel " + str(channel) + " with default settings")
-            else:
+                self.CreateAIVoltageChan(bytes(self.name+str(channel),'utf-8'),b"",AtoD_mode,minRange,maxRange,DAQmx_Val_Volts,None)
+                self.channelsNum = self.channelsNum + 1
+                currentChannels.append(channel)
+                print("Activated Channel " + str(channel))
+            elif(channel not in currentChannels):
                 currentChannels.append(channel)
         return currentChannels
        

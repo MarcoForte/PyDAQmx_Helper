@@ -4,6 +4,6 @@
 from AtoD import *
 
 myAtoD = AtoD()
-myAtoD.addChannel(0)
+myAtoD.addChannels(0)
 val = myAtoD.readVoltage()
 print(val)

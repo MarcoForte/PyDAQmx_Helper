@@ -5,9 +5,8 @@ import ctypes
 
 class DtoA(Task):
     
-    def __init__(self,channel):
-        
-        self.name = bytes(self.getDeviceName()+"/ao"+str(channel),'utf-8')
+    def __init__(self,channel,deviceName = ""):
+        self.name = bytes((deviceName if deviceName != "" else self.getDeviceName())+"/ao"+str(channel),'utf-8')
         Task.__init__(self)
         self.CreateAOVoltageChan(self.name,b"",0.0,5.0,DAQmx_Val_Volts,None)
 

@@ -8,7 +8,7 @@ from AtoD import *
 
 
 myAtoD = AtoD()
-myAtoD.addChannel(0)
+myAtoD.addChannels(0)
 
 data = list(myAtoD.sampleVoltages(100,100)[0])
 

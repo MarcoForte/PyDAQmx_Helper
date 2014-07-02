@@ -6,9 +6,9 @@ import ctypes
 class Digital_IO(Task):
     
     
-    def __init__(self,port = "0:1",direction="output"):
+    def __init__(self,port = "0:1",direction="output",deviceName = ""):
         self.port = port
-        self.name = bytes(self.getDeviceName()+"/port"+str(port),'utf-8')
+        self.name = bytes( (deviceName if deviceName != "" else self.getDeviceName())+"/port"+str(port),'utf-8')
         self.direction = str(direction)
         Task.__init__(self)
         

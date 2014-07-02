@@ -4,7 +4,8 @@
 from AtoD import *
 
 myAtoD = AtoD()
-myAtoD.addMultipleChannels(0,1,2)
-sample = myAtoD.readVoltage(2,1)
+myAtoD.addChannels(0,1,2)
+sample = myAtoD.sampleVoltages(10,10,2,1)
 print(sample)
+print("  \n Printing just values \n")
 print(list(sample.values()))

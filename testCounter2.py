@@ -5,13 +5,14 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 myCounter = Counter()
-data = np.zeros(30)
+data = np.zeros(8)
 rawData = []
-for i in range(0,1000):
+for i in range(0,10000):
     myCounter.start()
-    sleep(0.05)
+    sleep(0.01)
     
     count = myCounter.stop()
+    #print(count)
     if(i % 100 == 0):
         print(str(i) + " counts")
     #data = [i+1 for i in data if count > i]
@@ -29,7 +30,7 @@ f.close()
 f = open('file1.py','w')
 f.write(repr(data))
 f.close()
-plt.hist(rawData, bins = 60)
+plt.hist(rawData, bins = 6)
 plt.show()
 
 #print(myCounter.stop().value)
