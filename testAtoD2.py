@@ -3,7 +3,7 @@
 # samples from a single AtoD channel with a 
 # user-specified range at a given sample rate
 
-from AtoD import *
+from atod import AtoD
 
 myAtoD = AtoD()
 myAtoD.addChannels(0,AtoD_mode=DAQmx_Val_Diff,minRange=-5.0,maxRange=5.0)

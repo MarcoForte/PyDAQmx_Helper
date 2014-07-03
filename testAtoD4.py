@@ -4,7 +4,8 @@
 # 
 import numpy
 import matplotlib.pyplot as plt 
-from AtoD import *
+
+from atod import AtoD
 
 
 myAtoD = AtoD()

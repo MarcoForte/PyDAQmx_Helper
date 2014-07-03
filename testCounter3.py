@@ -1,8 +1,9 @@
 ﻿# Marco Forte 20/06/2014
 # Read out counts while task is running
 
-from Digital_IO import *
-from Counter import *
+
+from digital_io import Digital_IO
+from counter import Counter
 from time import sleep
 
 

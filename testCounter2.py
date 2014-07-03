@@ -1,5 +1,7 @@
 ﻿# Marco Forte, 19/06/2014
-from Counter import *
+
+
+from counter import Counter
 from time import sleep
 import matplotlib.pyplot as plt 
 import numpy as np
