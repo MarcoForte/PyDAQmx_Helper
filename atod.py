@@ -1,4 +1,6 @@
-﻿from PyDAQmx import *
+﻿from __future__ import print_function
+
+from PyDAQmx import *
 import numpy as np
 import ctypes
 from itertools import *
@@ -14,7 +16,7 @@ class AtoD(Task):
         self.channelsNum = 0
 
     #def addChannel(self,channel, AtoD_mode=DAQmx_Val_RSE, minRange=-10.0, MaxRange=10.0):
-    #    self.CreateAIVoltageChan(bytes(self.name+str(channel),'utf-8'),b"",AtoD_mode,minRange,MaxRange,DAQmx_Val_Volts,None)
+    #    self.CreateAIVoltageChan((self.name+str(channel)).encode('utf-8'),b"",AtoD_mode,minRange,MaxRange,DAQmx_Val_Volts,None)
     #   self.channelsNum = self.channelsNum + 1
      
      #Samples voltages at given rate from all channels, default, 10, 10
@@ -78,7 +80,7 @@ class AtoD(Task):
         currentChannels = []
         for channel in channels :
             if(channel not in activeChannels):
-                self.CreateAIVoltageChan(bytes(self.name+str(channel),'utf-8'),b"",AtoD_mode,minRange,maxRange,DAQmx_Val_Volts,None)
+                self.CreateAIVoltageChan((self.name+str(channel)).encode('utf-8'),b"",AtoD_mode,minRange,maxRange,DAQmx_Val_Volts,None)
                 self.channelsNum = self.channelsNum + 1
                 currentChannels.append(channel)
                 print("Activated Channel " + str(channel))

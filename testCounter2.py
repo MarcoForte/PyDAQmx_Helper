@@ -1,4 +1,6 @@
-﻿# Marco Forte, 19/06/2014
+﻿from __future__ import print_function
+
+# Marco Forte, 19/06/2014
 
 
 from counter import Counter

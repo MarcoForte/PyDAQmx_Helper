@@ -1,4 +1,6 @@
-﻿# Marco Forte, 18/06/2014
+﻿from __future__ import print_function
+
+# Marco Forte, 18/06/2014
 # Example program to show how to read multiple
 # samples from multiple AtoD channels at a given sample rate
 

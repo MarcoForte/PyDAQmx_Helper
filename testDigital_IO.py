@@ -1,4 +1,6 @@
-﻿# Marco Forte, 18/06/2014
+﻿from __future__ import print_function
+
+# Marco Forte, 18/06/2014
 # Test Digital IO by writing across both ports 0 and 1 of the Usb6008
 
 

@@ -1,4 +1,6 @@
-﻿#Marco forte, Digital IO, especially designed for USB6008
+﻿from __future__ import print_function
+
+#Marco forte, Digital IO, especially designed for USB6008
 from PyDAQmx import *
 import numpy as np
 import ctypes
@@ -8,7 +10,7 @@ class Digital_IO(Task):
     
     def __init__(self,port = "0:1",direction="output",deviceName = ""):
         self.port = port
-        self.name = bytes( (deviceName if deviceName != "" else self.getDeviceName())+"/port"+str(port),'utf-8')
+        self.name = ((deviceName if deviceName != "" else self.getDeviceName())+"/port"+str(port)).encode('utf-8')
         self.direction = str(direction)
         Task.__init__(self)
         

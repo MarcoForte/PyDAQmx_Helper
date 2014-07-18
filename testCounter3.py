@@ -1,4 +1,6 @@
-﻿# Marco Forte 20/06/2014
+﻿from __future__ import print_function
+
+# Marco Forte 20/06/2014
 # Read out counts while task is running
 
 

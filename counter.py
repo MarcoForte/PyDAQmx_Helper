@@ -1,11 +1,14 @@
-﻿#Marco Forte, Counter
+﻿from __future__ import unicode_literals
+from __future__ import print_function
+
+#Marco Forte, Counter
 from PyDAQmx import *
 import numpy as np
 import ctypes
 
 class Counter(Task):
     def __init__(self,deviceName = ""):
-        self.name = bytes((deviceName if deviceName != "" else self.getDeviceName())+"/ctr0",'utf-8')
+        self.name = ((deviceName if deviceName != "" else self.getDeviceName())+"/ctr0").encode('utf-8')
         Task.__init__(self)
         self.CreateCICountEdgesChan(self.name, b"", DAQmx_Val_Falling, 0, DAQmx_Val_CountUp)
     

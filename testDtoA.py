@@ -1,4 +1,6 @@
-﻿# Marco Forte, 18/06/2014
+﻿from __future__ import print_function
+
+# Marco Forte, 18/06/2014
 # Example program to show how to write a single 
 # voltage to the first DtoA channel.
 
