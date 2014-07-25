@@ -40,13 +40,14 @@ class AtoD(Task):
         sample = OrderedDict(zip(activeChannels, sample))
 
         # Extracts wanted channels in order
-        if(requestedActiveChannels != []):
+        if(channels != []):
             newSample = dict()
             for key in sample:
-                if (key in requestedActiveChannels):
+                if (key in channels):
                     newSample[key] = sample[key]
-            # {key: value for (key, value) in sample.iteritems() if key in requestedActiveChannels}
-            return OrderedDict(sorted(newSample.items(),  key=lambda t: requestedActiveChannels.index(t[0])))
+            # Something like below could replace the above but it's not compatible between python 2 and 3
+            # {key: value for (key, value) in sample.iteritems() if key in channels}
+            return OrderedDict(sorted(newSample.items(),  key=lambda t: channels.index(t[0])))
 
         return sample
 
@@ -68,21 +69,14 @@ class AtoD(Task):
             activeChannels = list(map(lambda x: int(x[-1]), activeChannels.value.decode('utf-8').split(',')))
             return activeChannels
 
-    #   Adds multiple channels and returns from the inputted list those channels which are now active
-    # removes duplicates and puts channels given into a list
-    # loops through activating channels and depending on checkAdd asks the user or not to do so
+    # Adds list of channels with default settings or if given by user
+    # Returns back the list given.
     def addChannels(self, newChannels, AtoD_mode=DAQmx_Val_Diff, minRange=-10.0, maxRange=10.0):
-        activeChannels = self.getActiveChannels()
-        currentChannels = []
         for newChannel in newChannels:
             if(newChannel not in activeChannels):
                 self.CreateAIVoltageChan((self.name + str(newChannel)).encode('utf-8'), b"", AtoD_mode, minRange, maxRange, DAQmx_Val_Volts None)
-                currentChannels.append(newChannel)
                 print("Activated Channel " + str(newChannel))
-            # If active and not already in currentChannels list add it
-            elif(newChannel not in currentChannels):
-                currentChannels.append(newChannel)
-        return currentChannels
+    
 
     def grouper(iterable, n, fillvalue=None):
         "Collect data into fixed-length chunks or blocks"

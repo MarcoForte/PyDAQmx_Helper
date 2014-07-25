@@ -1,7 +1,10 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 from __future__ import print_function
-
+try:
+    input = raw_input
+except NameError:
+    pass
 # Marco Forte, 18/06/2014
 # Test Digital IO by writing across both ports 0 and 1 of the Usb6008
 
