@@ -20,7 +20,7 @@ class AtoD(Task):
 
     # Samples voltages at given rate from all channels,  default,  10,  10
     # Multiple Channels
-    #   Attempts to add non active channels warning user
+    #   Attempts to add non active channels telling user
     #   Samples the voltage from all active channels
     #   Zips them up together with channel name and value into a dictionary
     #   Removes extra channels from dictionary that are not given active channels
@@ -70,7 +70,6 @@ class AtoD(Task):
             return activeChannels
 
     # Adds list of channels with default settings or if given by user
-    # Returns back the list given.
     def addChannels(self, newChannels, AtoD_mode=DAQmx_Val_Diff, minRange=-10.0, maxRange=10.0):
         for newChannel in newChannels:
             if(newChannel not in activeChannels):
