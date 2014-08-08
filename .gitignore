@@ -36,5 +36,7 @@ Icon
 .Trashes
 
 
-#Py cache files
+# Py cache files
 *.pyc
+__pycache__/
+
