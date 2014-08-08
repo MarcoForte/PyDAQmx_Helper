@@ -8,7 +8,7 @@ except NameError:
     pass
 
 # Marco Forte, 18/06/2014
-# Example of using Digital IO to  write across both ports 0 and 1 of the Usb6008
+# Example of using Digital IO to  write across both ports 0 and 1 of the Usb 6008
 
 from digital_io import Digital_IO
 
