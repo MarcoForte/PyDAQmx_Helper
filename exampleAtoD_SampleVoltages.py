@@ -6,6 +6,7 @@ from __future__ import print_function
 # Example program to show how to read multiple
 # samples from a single AtoD channel with a
 # user-specified range at a given sample rate
+# Should print out 50 samples
 
 from atod import AtoD
 
@@ -17,6 +18,5 @@ myAtoD.addChannels([0], AtoD_mode=DAQmx_Val_Diff, minRange=-5.0,
 # Here we get the values from channel 0
 
 samples = myAtoD.sampleVoltages(50, 10)[0]
-size = len(samples)
-for i in range(size):
-    print(samples[i])
+for sample in samples:
+    print(sample)
