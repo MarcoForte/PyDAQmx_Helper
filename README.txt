@@ -1,5 +1,5 @@
 ===========
-PyDAQmx-Helper
+PyDAQmx_Helper
 ===========
 
 PyDAQmx-Helper provides a set of specialised classes that replace using a 'Task' in PyDAQmx. It is usefull for simple applications of the PyDAQmx library.
