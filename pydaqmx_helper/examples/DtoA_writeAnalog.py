@@ -6,6 +6,6 @@ from __future__ import print_function
 # Example program to show how to write a single
 # 2.62v voltage to the first DtoA channel.
 
-from dtoa import DtoA
+from pydaqmx_helper.dtoa import DtoA
 myDtoA = DtoA(0)
 myDtoA.writeVoltage(2.62)
