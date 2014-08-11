@@ -8,8 +8,8 @@ from __future__ import print_function
 # Connect P0.0 to PFIO counter with a wire!
 # Should print out 666 
 
-from digital_io import Digital_IO
-from counter import Counter
+from pydaqmx-helper.digital_io import Digital_IO
+from pydaqmx-helper.counter import Counter
 from time import sleep
 
 myCounter = Counter()
