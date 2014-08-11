@@ -1,34 +1,30 @@
 ===========
-Towel Stuff
+PyDAQmx-Helper
 ===========
 
-Towel Stuff provides such and such and so and so. You might find
-it most useful for tasks involving <x> and also <y>. Typical usage
+PyDAQmx-Helper provides a set of specialised classes that replace using a 'Task' in PyDAQmx. It is usefull for simple applications of the PyDAQmx library.
+Typical usage
 often looks like this::
 
     #!/usr/bin/env python
 
-    from towelstuff import location
-    from towelstuff import utils
+    from PyDAQmx-Helper import atod
 
-    if utils.has_towel():
-        print "Your towel is located:", location.where_is_my_towel()
-
-(Note the double-colon and 4-space indent formatting above.)
-
-Paragraphs are separated by blank lines. *Italics*, **bold**,
-and ``monospace`` look like this.
+    from atod import AtoD
+    myAtoD = AtoD()
+    myAtoD.addChannels([0])
+    val = myAtoD.readVoltage()
+    print(val)
 
 
-A Section
+
+
+Installation
 =========
 
-Lists look like this:
+* Install through github
 
-* First
-
-* Second. Can be multiple lines
-  but must be indented properly.
+* Install through Pip
 
 A Sub-Section
 -------------
