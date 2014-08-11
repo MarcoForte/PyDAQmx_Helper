@@ -8,9 +8,7 @@ often looks like this::
 
     #!/usr/bin/env python
 
-    from PyDAQmx-Helper import atod
-
-    from atod import AtoD
+    from pydaqmx_helper.atod import AtoD
     myAtoD = AtoD()
     myAtoD.addChannels([0])
     val = myAtoD.readVoltage()
