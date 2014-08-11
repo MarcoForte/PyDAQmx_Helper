@@ -1,18 +1,16 @@
 from distutils.core import setup
 
 setup(
-    name='TowelStuff',
+    name='PyDAQmx-Helper',
     version='0.1.0',
-    author='J. Random Hacker',
-    author_email='jrh@example.com',
-    packages=['towelstuff', 'towelstuff.test'],
-    scripts=['bin/stowe-towels.py','bin/wash-towels.py'],
-    url='http://pypi.python.org/pypi/TowelStuff/',
+    author='Marco Forte',
+    author_email='fortemarco.irl@gmail.com',
+    packages=['pydaqmx-helper', 'pydaqmx-helper.test'],
     license='LICENSE.txt',
-    description='Useful towel-related stuff.',
+    description='Python classes to help with everyday PyDAQmx tasks',
     long_description=open('README.txt').read(),
     install_requires=[
-        "Django >= 1.1.1",
-        "caldav == 0.1.4",
+        "numpy >= 1.8.1",
+        "matplotlib >= 1.3.1",
     ],
 )
