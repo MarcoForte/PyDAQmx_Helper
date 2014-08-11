@@ -8,7 +8,7 @@ from __future__ import print_function
 # user-specified range at a given sample rate
 # Should print out 50 samples
 
-from atod import AtoD
+from pydaqmx-helper.atod import AtoD
 
 myAtoD = AtoD()
 myAtoD.addChannels([0], AtoD_mode=DAQmx_Val_Diff, minRange=-5.0,
