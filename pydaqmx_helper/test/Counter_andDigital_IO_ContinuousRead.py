@@ -7,8 +7,8 @@ from __future__ import print_function
 # Simlarly to testcounter_andDigital_IO.py it should print out 666
 # But this also prints out every 10 counts
 
-from pydaqmx-helper.digital_io import Digital_IO
-from pydaqmx-helper.counter import Counter
+from pydaqmx_helper.digital_io import Digital_IO
+from pydaqmx_helper.counter import Counter
 from time import sleep
 
 myCounter = Counter()

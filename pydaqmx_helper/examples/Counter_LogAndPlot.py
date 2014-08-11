@@ -6,7 +6,7 @@ from __future__ import print_function
 # Should produce a histogram plot of counts in given interval(seconds) 
 # Also saves a python list of the raw and frequency counts data to files. 
 
-from pydaqmx-helper.counter import Counter
+from pydaqmx_helper.counter import Counter
 from time import sleep
 import matplotlib.pyplot as plt
 import numpy as np

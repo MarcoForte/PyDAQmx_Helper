@@ -6,7 +6,7 @@ from __future__ import print_function
 # Example program to show how to read multiple
 # samples from multiple AtoD channels at a given sample rate
 
-from pydaqmx-helper.atod import AtoD
+from pydaqmx_helper.atod import AtoD
 
 myAtoD = AtoD()
 myAtoD.addChannels([0, 1, 2])

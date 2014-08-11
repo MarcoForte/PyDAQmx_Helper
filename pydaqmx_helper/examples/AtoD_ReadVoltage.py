@@ -4,7 +4,7 @@ from __future__ import print_function
 # Should print out the correct voltage value for channel 0
 # Marco Forte, 18/06/2014
 
-from pydaqmx-helper.atod import AtoD
+from pydaqmx_helper.atod import AtoD
 
 myAtoD = AtoD()
 myAtoD.addChannels([0])
