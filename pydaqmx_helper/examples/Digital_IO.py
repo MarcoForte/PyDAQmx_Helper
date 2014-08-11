@@ -10,7 +10,7 @@ except NameError:
 # Marco Forte, 18/06/2014
 # Example of using Digital IO to  write across both ports 0 and 1 of the Usb 6008
 
-from digital_io import Digital_IO
+from pydaqmx-helper.digital_io import Digital_IO
 
 myDigital_IO = Digital_IO()
 while True:
