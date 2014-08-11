@@ -10,7 +10,7 @@ from __future__ import print_function
 import numpy
 import matplotlib.pyplot as plt
 
-from atod import AtoD
+from pydaqmx-helper.atod import AtoD
 
 myAtoD = AtoD()
 myAtoD.addChannels([0])
