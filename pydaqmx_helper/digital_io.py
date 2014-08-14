@@ -26,6 +26,7 @@ class Digital_IO(Task):
     def write(self, num):
         if(self.direction != "output"):
             print("Ports are not set as output, please set them to output to be able to write ")
+            return None
 
         if self.port == "0:1":
             num = num & 4096
