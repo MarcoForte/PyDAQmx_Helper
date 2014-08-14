@@ -27,10 +27,22 @@ class Digital_IO(Task):
         if(self.direction != "output"):
             print("Ports are not set as output, please set them to output to be able to write ")
 
-        binaryNum = (format(num & 65535, '#018b') if self.port == "0:1" else format(num & 255, '#010b'))
+        if self.port == "0:1":
+            num = num & 4096
+            binaryNum = format(num, '#014b')
+        elif self.port == "0":
+            num = num & 255
+            binaryNum = format(num, '#010b')
+        else:
+            num = num & 15
+            binaryNum = format(num, '#06b')
 
-        data = np.array([int(i) for i in binaryNum[len(binaryNum):2:-1]], dtype='uint8')
-        self.WriteDigitalLines(1, 1, 10.0, DAQmx_Val_GroupByChannel, data, None, None)
+
+        print(str(num))
+        #binaryNum = (format(num, '#018b') if self.port == "0:1" elif self.port == "0"  else format(num, '#06b'))
+        #data = np.array([int(i) for i in binaryNum[len(binaryNum):2:-1]], dtype='uint8')
+        #self.WriteDigitalLines(1, 1, 10.0, DAQmx_Val_GroupByChannel, data, None, None)
+        self.WriteDigitalScalarU32(True, -1, ctypes.c_uint32(num), None)
         return binaryNum
 
     # Creates empty array to read into
