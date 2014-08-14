@@ -28,7 +28,6 @@ class AtoD(Task):
     def sampleVoltages(self, nPointsPerChannel=1, sampleRate=1, channels=[]):
         read = int32()
 
-        requestedActiveChannels = self.addChannels(channels)
         activeChannels = self.getActiveChannels()
 
         sample = np.zeros(len(activeChannels)*nPointsPerChannel)
