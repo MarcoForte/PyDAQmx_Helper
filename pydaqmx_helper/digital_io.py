@@ -37,8 +37,6 @@ class Digital_IO(Task):
             num = num & 15
             binaryNum = format(num, '#06b')
 
-
-        print(str(num))
         #binaryNum = (format(num, '#018b') if self.port == "0:1" elif self.port == "0"  else format(num, '#06b'))
         #data = np.array([int(i) for i in binaryNum[len(binaryNum):2:-1]], dtype='uint8')
         #self.WriteDigitalLines(1, 1, 10.0, DAQmx_Val_GroupByChannel, data, None, None)
