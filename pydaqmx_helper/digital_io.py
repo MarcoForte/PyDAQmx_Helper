@@ -29,7 +29,7 @@ class Digital_IO(Task):
             return None
 
         if self.port == "0:1":
-            num = num & 4096
+            num = num & 4095
             binaryNum = format(num, '#014b')
         elif self.port == "0":
             num = num & 255
