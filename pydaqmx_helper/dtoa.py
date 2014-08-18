@@ -8,7 +8,7 @@ import ctypes
 
 class DtoA(Task):
 
-""" Inherits the task class, and simplifies DtoA work"""
+    """ Inherits the task class, and simplifies DtoA work"""
 
     def __init__(self, channel, deviceName=""):
         self.name = ((deviceName if deviceName != "" else self.getDeviceName()) + "/ao" + str(channel)).encode('utf-8')
