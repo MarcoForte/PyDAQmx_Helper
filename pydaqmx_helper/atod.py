@@ -9,7 +9,8 @@ from collections import OrderedDict
 
 
 class AtoD(Task):
-""" Small class to provide simplified reading to the analog ports using PyDAQmx package."""
+    
+    """ Small class to provide simplified reading to the analog ports using PyDAQmx package."""
 
     def __init__(self, deviceName=""):
         self.name = (deviceName if deviceName != "" else self.getDeviceName()) + "/ai"
