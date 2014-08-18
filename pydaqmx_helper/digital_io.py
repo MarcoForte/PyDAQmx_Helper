@@ -34,21 +34,11 @@ class Digital_IO(Task):
             print("Ports are not set as output, please set them to output to be able to write ")
             return None
 
-        if self.port == "0:1":
-            num = num & 4095
-            binaryNum = format(num, '#014b')
-        elif self.port == "0":
-            num = num & 255
-            binaryNum = format(num, '#010b')
-        else:
-            num = num & 15
-            binaryNum = format(num, '#06b')
-
         #binaryNum = (format(num, '#018b') if self.port == "0:1" elif self.port == "0"  else format(num, '#06b'))
         #data = np.array([int(i) for i in binaryNum[len(binaryNum):2:-1]], dtype='uint8')
         #self.WriteDigitalLines(1, 1, 10.0, DAQmx_Val_GroupByChannel, data, None, None)
         self.WriteDigitalScalarU32(True, -1, ctypes.c_uint32(num), None)
-        return binaryNum
+        return binaryFormat(num)
 
 
     def read(self):
@@ -63,10 +53,17 @@ class Digital_IO(Task):
             sample = ctypes.c_ulong(4095)
             
             self.ReadDigitalScalarU32(10, sample, None)
-            if(self.port == "1"):
-                return format(sample.value & 15, '#06b')
-            elif(self.port == "0:1"):
-                return format(sample.value & 4095, '#14b')
-            else:
-                return format(sample.value & 255, '#10b')
+            return binaryFormat(sample)
 
+    def binaryFormat(self, num):
+        """ Converts number into binary format appropriate for the task, i.e right length
+            """
+        if self.port == "0:1":
+            num = num & 4095
+            binaryNum = format(num, '#014b')
+        elif self.port == "0":
+            num = num & 255
+            binaryNum = format(num, '#010b')
+        else:
+            num = num & 15
+            binaryNum = format(num, '#06b')
