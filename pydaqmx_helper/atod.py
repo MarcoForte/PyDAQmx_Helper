@@ -56,7 +56,7 @@ class AtoD(Task):
 
     
     def readVoltage(self):
-    """ Read a floating-point voltage from a task with one channel"""
+        """ Read a floating-point voltage from a task with one channel"""
         voltage = c_double(0)
         self.ReadAnalogScalarF64(-1, voltage, None)
         return voltage.value
