@@ -22,14 +22,14 @@ class Counter(Task):
         self.StartTask()
 
     def stop(self):
-    """ Stop the counter and return the count"""
+        """ Stop the counter and return the count"""
         count = c_uint32()
         self.ReadCounterScalarU32(0, count, None)
         self.StopTask()
         return count.value
 
     def getCount(self):
-    """ Return a count without stoppping the counter """
+        """ Return a count without stoppping the counter """
         count = c_uint32()
         self.ReadCounterScalarU32(0, count, None)
         return count.value
