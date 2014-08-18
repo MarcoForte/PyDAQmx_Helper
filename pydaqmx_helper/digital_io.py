@@ -52,23 +52,21 @@ class Digital_IO(Task):
 
 
     def read(self):
-        """ Read a voltage from the port given to the constructor
-        Creates empty array to read into
-        Reads in digital port(s)
-        converts sampled reading to binary and uses min number of lower bits
-        Converts binary number into array
-        """
-        if(self.direction != "input"):
-            print("Ports are not set as input, please set them to input to be able to write ")
-            return 0
+            """ Read a voltage from the port given to the constructor
+            Creates empty array to read into
+            Reads in digital port(s)
+            converts sampled reading to binary and uses min number of lower bits
+            """
+            if(self.direction != "input"):
+                print("Ports are not set as input, please set them to input to be able to write ")
+                return 0
+            sample = ctypes.c_ulong(4095)
+            
+            self.ReadDigitalScalarU32(10, sample, None)
+            if(self.port == "1"):
+                return format(sample.value & 15, '#06b')
+            elif(self.port == "0:1"):
+                return format(sample.value & 4095, '#14b')
+            else:
+                return format(sample.value & 255, '#10b')
 
-        if(self.port == "0:1"):
-            sample = np.zeros(1, dtype=np.uint16)
-            self.ReadDigitalU16(1, 0, DAQmx_Val_GroupByChannel, sample, 1, int32(), None)
-            ui16 = format(sample[0] & 4095, '#014b')
-            return np.array([int(i) for i in ui16[2:]], dtype='uint16').tolist()
-
-        sample = np.zeros(1, dtype=np.uint8)
-        self.ReadDigitalU8(1, 0, DAQmx_Val_GroupByChannel, sample, 1, int32(), None)
-        ui8 = format(sample[0] & 255, '#010b')
-        return np.array([int(i) for i in ui8[2:]], dtype='uint8').tolist()
