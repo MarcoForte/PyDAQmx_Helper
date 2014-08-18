@@ -10,7 +10,7 @@ from pydaqmx_helper.atod import AtoD
 
 myAtoD = AtoD()
 myAtoD.addChannels([0, 1, 2])
-sample = myAtoD.sampleVoltages(10, 10, 2, 1)
+sample = myAtoD.sampleVoltages(10, 10, [2, 1])
 print(sample)
 print('Printing just values ')
 print(list(sample.values()))
