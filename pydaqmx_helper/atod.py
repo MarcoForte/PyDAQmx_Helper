@@ -7,8 +7,9 @@ from itertools import *
 from collections import OrderedDict
 
 
-# Small class to provide simplified reading to the analog ports using PyDAQmx package.
+
 class AtoD(Task):
+""" Small class to provide simplified reading to the analog ports using PyDAQmx package."""
 
     def __init__(self, deviceName=""):
         self.name = (deviceName if deviceName != "" else self.getDeviceName()) + "/ai"
@@ -18,14 +19,16 @@ class AtoD(Task):
     #    self.CreateAIVoltageChan((self.name+str(channel)).encode('utf-8'), b"", AtoD_mode, minRange, MaxRange, DAQmx_Val_Volts, None)
     #   self.channelsNum = self.channelsNum + 1
 
-    # Samples voltages at given rate from all channels,  default,  10,  10
-    # Multiple Channels
-    #   Attempts to add non active channels telling user
-    #   Samples the voltage from all active channels
-    #   Zips them up together with channel name and value into a dictionary
-    #   Removes extra channels from dictionary that are not given active channels
-    #   Orders the dictionary like given at beggining and returns ordered dictionary
+    
     def sampleVoltages(self, nPointsPerChannel=1, sampleRate=1, channels=[]):
+    """ Sample voltages at given rate from all channels,  default,  10,  10
+
+      Attempts to add non active channels telling user
+      Samples the voltage from all active channels
+      Zips them up together with channel name and value into a dictionary
+      Removes extra channels from dictionary that are not given active channels
+      Orders the dictionary like given at beggining and returns ordered dictionary
+      """  
         read = int32()
 
         activeChannels = self.getActiveChannels()
@@ -50,15 +53,19 @@ class AtoD(Task):
 
         return sample
 
-    # Reads floating-point voltage from a task with one channel
+    
     def readVoltage(self):
+    """ Read a floating-point voltage from a task with one channel"""
         voltage = c_double(0)
         self.ReadAnalogScalarF64(-1, voltage, None)
         return voltage.value
 
-    # Returns python list of channel numbers
-    # At the end correctly extracts channel number from returned string of active channels
+    
     def getActiveChannels(self):
+    """ Return a python list of channel numbers
+
+    At the end correctly extracts channel number from returned string of active channels
+    """
         # Allocate space for channels,  simpler than getting exact right amount
         activeChannels = c_char_p(b"x"*300)
         self.GetTaskChannels(activeChannels, 300)
@@ -68,8 +75,9 @@ class AtoD(Task):
             activeChannels = list(map(lambda x: int(x[-1]), activeChannels.value.decode('utf-8').split(',')))
             return activeChannels
 
-    # Adds list of channels with default settings or if given by user
+    
     def addChannels(self, newChannels, AtoD_mode=DAQmx_Val_Diff, minRange=-10.0, maxRange=10.0):
+    """ Add a list of channels with default settings or if given by user"""
         for newChannel in newChannels:
             if(newChannel not in self.getActiveChannels()):
                 self.CreateAIVoltageChan((self.name + str(newChannel)).encode('utf-8'), b"", AtoD_mode, minRange, maxRange, DAQmx_Val_Volts, None)

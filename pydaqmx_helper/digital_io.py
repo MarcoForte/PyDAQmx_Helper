@@ -1,6 +1,6 @@
 ﻿from __future__ import print_function
 
-#Marco forte,  Digital IO,  especially designed for USB6008
+# Marco forte,  Digital IO,  especially designed for USB6008
 from PyDAQmx import *
 import numpy as np
 import ctypes
@@ -8,6 +8,10 @@ import ctypes
 
 class Digital_IO(Task):
 
+    """ Inherits the task class, and simplifies digital_IO work
+    Supports reading and writing to channels 0, 1 or 0 and 1
+    """
+    
     def __init__(self, port="0:1",  direction="output", deviceName=""):
         self.port = port
         self.name = ((deviceName if deviceName != "" else self.getDeviceName()) + "/port" + str(port)).encode('utf-8')
@@ -20,10 +24,12 @@ class Digital_IO(Task):
             self.CreateDOChan(self.name, b"", DAQmx_Val_ChanForAllLines)
         print("Created digital " + self.direction + " port: " + self.name.decode('utf-8'))
 
-    # Convert num to binary string with leading zeros, depends on port '0:1' or '0'/'1'
-    # Convert binary string to numpy array using list comprehensions
-    # Note on the below,[len(ui16):2:-1], binary reversal, done to match up intuitively with ports on usb6008
     def write(self, num):
+    """ Convert num to binary string with leading zeros, depends on port '0:1' or '0'/'1'
+    
+    Convert binary string to numpy array using list comprehensions
+    Note on the below,[len(ui16):2:-1], binary reversal, done to match up intuitively with ports on usb6008
+    """
         if(self.direction != "output"):
             print("Ports are not set as output, please set them to output to be able to write ")
             return None
@@ -44,11 +50,14 @@ class Digital_IO(Task):
         self.WriteDigitalScalarU32(True, -1, ctypes.c_uint32(num), None)
         return binaryNum
 
-    # Creates empty array to read into
-    # Reads in digital port(s)
-    # converts sampled reading to binary and uses min number of lower bits
-    # Converts binary number into array
+
     def read(self):
+    """ Read a voltage from the port given to the constructor
+    Creates empty array to read into
+    Reads in digital port(s)
+    converts sampled reading to binary and uses min number of lower bits
+    Converts binary number into array
+    """
         if(self.direction != "input"):
             print("Ports are not set as input, please set them to input to be able to write ")
             return 0
