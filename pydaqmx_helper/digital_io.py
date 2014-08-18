@@ -52,12 +52,12 @@ class Digital_IO(Task):
 
 
     def read(self):
-    """ Read a voltage from the port given to the constructor
-    Creates empty array to read into
-    Reads in digital port(s)
-    converts sampled reading to binary and uses min number of lower bits
-    Converts binary number into array
-    """
+        """ Read a voltage from the port given to the constructor
+        Creates empty array to read into
+        Reads in digital port(s)
+        converts sampled reading to binary and uses min number of lower bits
+        Converts binary number into array
+        """
         if(self.direction != "input"):
             print("Ports are not set as input, please set them to input to be able to write ")
             return 0
