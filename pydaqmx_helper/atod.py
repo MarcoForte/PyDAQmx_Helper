@@ -22,14 +22,14 @@ class AtoD(Task):
 
     
     def sampleVoltages(self, nPointsPerChannel=1, sampleRate=1, channels=[]):
-    """ Sample voltages at given rate from all channels,  default,  10,  10
-
-      Attempts to add non active channels telling user
-      Samples the voltage from all active channels
-      Zips them up together with channel name and value into a dictionary
-      Removes extra channels from dictionary that are not given active channels
-      Orders the dictionary like given at beggining and returns ordered dictionary
-      """  
+        """ Sample voltages at given rate from all channels,  default,  10,  10
+        
+        Attempts to add non active channels telling user
+        Samples the voltage from all active channels
+        Zips them up together with channel name and value into a dictionary
+        Removes extra channels from dictionary that are not given active channels
+        Orders the dictionary like given at beggining and returns ordered dictionary
+          """  
         read = int32()
 
         activeChannels = self.getActiveChannels()
@@ -63,10 +63,10 @@ class AtoD(Task):
 
     
     def getActiveChannels(self):
-    """ Return a python list of channel numbers
+        """ Return a python list of channel numbers
 
-    At the end correctly extracts channel number from returned string of active channels
-    """
+        At the end correctly extracts channel number from returned string of active channels
+        """
         # Allocate space for channels,  simpler than getting exact right amount
         activeChannels = c_char_p(b"x"*300)
         self.GetTaskChannels(activeChannels, 300)
@@ -78,7 +78,7 @@ class AtoD(Task):
 
     
     def addChannels(self, newChannels, AtoD_mode=DAQmx_Val_Diff, minRange=-10.0, maxRange=10.0):
-    """ Add a list of channels with default settings or if given by user"""
+        """ Add a list of channels with default settings or if given by user"""
         for newChannel in newChannels:
             if(newChannel not in self.getActiveChannels()):
                 self.CreateAIVoltageChan((self.name + str(newChannel)).encode('utf-8'), b"", AtoD_mode, minRange, maxRange, DAQmx_Val_Volts, None)
@@ -86,7 +86,7 @@ class AtoD(Task):
     
 
     def grouper(iterable, n, fillvalue=None):
-        "Collect data into fixed-length chunks or blocks"
+        """Collect data into fixed-length chunks or blocks"""
         # grouper('ABCDEFG', 3, 'x') --> ABC DEF Gxx"
         args = [iter(iterable)] * n
         return zip_longest(*args, fillvalue=fillvalue)
