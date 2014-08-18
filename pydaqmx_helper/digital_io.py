@@ -25,11 +25,11 @@ class Digital_IO(Task):
         print("Created digital " + self.direction + " port: " + self.name.decode('utf-8'))
 
     def write(self, num):
-    """ Convert num to binary string with leading zeros, depends on port '0:1' or '0'/'1'
+        """ Convert num to binary string with leading zeros, depends on port '0:1' or '0'/'1'
     
-    Convert binary string to numpy array using list comprehensions
-    Note on the below,[len(ui16):2:-1], binary reversal, done to match up intuitively with ports on usb6008
-    """
+        Convert binary string to numpy array using list comprehensions
+        Note on the below,[len(ui16):2:-1], binary reversal, done to match up intuitively with ports on usb6008
+        """
         if(self.direction != "output"):
             print("Ports are not set as output, please set them to output to be able to write ")
             return None
