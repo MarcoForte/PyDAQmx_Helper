@@ -77,8 +77,9 @@ class AtoD(Task):
             return activeChannels
 
     
-    def addChannels(self, newChannels, AtoD_mode=DAQmx_Val_Diff, minRange=-10.0, maxRange=10.0):
+    def addChannels(self, newChannels, AtoD_mode='DAQmx_Val_Diff', minRange=-10.0, maxRange=10.0):
         """ Add a list of channels with default settings or if given by user"""
+        AtoD_mode = eval(AtoD_mode)
         for newChannel in newChannels:
             if(newChannel not in self.getActiveChannels()):
                 self.CreateAIVoltageChan((self.name + str(newChannel)).encode('utf-8'), b"", AtoD_mode, minRange, maxRange, DAQmx_Val_Volts, None)
