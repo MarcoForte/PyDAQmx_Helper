@@ -2,9 +2,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function
 
-# Marco Forte, 18/06/2014
-# Example program to show how to read multiple
-# samples from multiple AtoD channels at a given sample rate
+""" Example program to show how to read multiple
+samples from multiple AtoD channels at a given sample rate
+"""
 
 from pydaqmx_helper.atod import AtoD
 

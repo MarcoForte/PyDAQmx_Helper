@@ -1,8 +1,10 @@
 from pydaqmx_helper.digital_io import Digital_IO
 from pydaqmx_helper.counter import Counter
 import ctypes
-# Connect P0.0 and P1.0
-# Should print out 14
+
+""" Connect P0.0 and P1.0
+Should print out 14
+"""
 dout = Digital_IO("0")
 dout.write(0)
 

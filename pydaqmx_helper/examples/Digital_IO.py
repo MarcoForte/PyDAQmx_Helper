@@ -7,8 +7,7 @@ try:
 except NameError:
     pass
 
-# Marco Forte, 18/06/2014
-# Example of using Digital IO to  write across both ports 0 and 1 of the Usb 6008
+""" Example of using Digital IO to  write across both ports 0 and 1 of the Usb 6008"""
 
 from pydaqmx_helper.digital_io import Digital_IO
 
