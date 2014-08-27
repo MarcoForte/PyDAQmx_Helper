@@ -89,3 +89,7 @@ docs/_build/
 
 # PyBuilder
 target/
+
+#Makefile
+docs/Makefile
+docs/make.bat
