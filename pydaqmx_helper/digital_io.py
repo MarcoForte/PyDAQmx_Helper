@@ -29,6 +29,7 @@ class Digital_IO(Task):
     
         Convert binary string to numpy array using list comprehensions
         Note on the below,[len(ui16):2:-1], binary reversal, done to match up intuitively with ports on usb6008
+        Return the number written in binary with appropriate amount of leading zeros. 
         """
         if(self.direction != "output"):
             print("Ports are not set as output, please set them to output to be able to write ")
@@ -38,25 +39,27 @@ class Digital_IO(Task):
         #data = np.array([int(i) for i in binaryNum[len(binaryNum):2:-1]], dtype='uint8')
         #self.WriteDigitalLines(1, 1, 10.0, DAQmx_Val_GroupByChannel, data, None, None)
         self.WriteDigitalScalarU32(True, -1, ctypes.c_uint32(num), None)
-        return binaryFormat(num)
+        return self.binaryFormat(num)
 
 
     def read(self):
             """ Read a voltage from the port given to the constructor
             Creates empty array to read into
             Reads in digital port(s)
-            converts sampled reading to binary and uses min number of lower bits
+            #converts sampled reading to binary and uses min number of lower bits
+            Returns the sample scalar in decimal.
             """
             if(self.direction != "input"):
-                print("Ports are not set as input, please set them to input to be able to write ")
+                print("Ports are not set as input, please set them to input to be able to read ")
                 return 0
             sample = ctypes.c_ulong(4095)
             
             self.ReadDigitalScalarU32(10, sample, None)
-            return binaryFormat(sample)
+            return sample.value
+            #return self.binaryFormat(sample.value)
 
     def binaryFormat(self, num):
-        """ Converts number into binary format appropriate for the task, i.e right length
+        """ Converts number into binary format appropriate for the task, i.e right amount of leading zeros
             """
         if self.port == "0:1":
             num = num & 4095
@@ -67,3 +70,4 @@ class Digital_IO(Task):
         else:
             num = num & 15
             binaryNum = format(num, '#06b')
+        return binaryNum
