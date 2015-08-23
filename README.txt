@@ -20,18 +20,4 @@ often looks like this::
 Installation
 =========
 
-* Install through github
-
-* Install through Pip
-
-A Sub-Section
--------------
-
-Numbered lists look like you'd expect:
-
-1. hi there
-
-2. must be going
-
-Urls are http://like.this and links can be
-written `like this <http://www.example.com/foo/bar>`_.
+Download zip and move to  python folder and use pip with my setup.py
