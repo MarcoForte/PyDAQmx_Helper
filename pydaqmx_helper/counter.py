@@ -8,6 +8,11 @@ import ctypes
 
 
 class Counter(Task):
+
+    """ Inherits the task class, and simplifies counter work
+    Supports stop and starting the counters and also getting a running count
+    """
+    
     def __init__(self, deviceName=""):
         self.name = ((deviceName if deviceName != "" else self.getDeviceName())+"/ctr0").encode('utf-8')
         Task.__init__(self)
@@ -17,12 +22,14 @@ class Counter(Task):
         self.StartTask()
 
     def stop(self):
+        """ Stop the counter and return the count"""
         count = c_uint32()
         self.ReadCounterScalarU32(0, count, None)
         self.StopTask()
         return count.value
 
     def getCount(self):
+        """ Return a count without stoppping the counter """
         count = c_uint32()
         self.ReadCounterScalarU32(0, count, None)
         return count.value

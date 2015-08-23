@@ -2,11 +2,12 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function
 
-# Marco Forte, 19/06/2014
-# Should produce a histogram plot of counts in given interval(seconds) 
-# Also saves a python list of the raw and frequency counts data to files. 
+"""
+Should produce a histogram plot of counts in given interval(seconds) 
+Also saves a python list of the raw and frequency counts data to files. 
+"""
 
-from counter import Counter
+from pydaqmx_helper.counter import Counter
 from time import sleep
 import matplotlib.pyplot as plt
 import numpy as np
@@ -17,7 +18,7 @@ data = np.zeros(8)
 rawData = []
 interval = 0.01
 
-for i in range(0, 10000):
+for i in range(0, 1000):
     myCounter.start()
     sleep(interval)
     count = myCounter.stop()
