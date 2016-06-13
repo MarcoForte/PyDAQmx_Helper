@@ -5,6 +5,7 @@ import numpy as np
 import ctypes
 from itertools import *
 from collections import OrderedDict
+import getDeviceName
 
 
 

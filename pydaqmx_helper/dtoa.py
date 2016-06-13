@@ -4,6 +4,7 @@
 from PyDAQmx import *
 import numpy as np
 import ctypes
+import getDeviceName
 
 
 class DtoA(Task):
