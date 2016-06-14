@@ -5,7 +5,7 @@ import numpy as np
 import ctypes
 from itertools import *
 from collections import OrderedDict
-from getDeviceName import getDeviceName
+from PyDAQmx_Helper.pydaqmx_helper.getDeviceName import getDeviceName
 
 
 

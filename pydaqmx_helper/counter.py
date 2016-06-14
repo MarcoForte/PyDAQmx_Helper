@@ -5,7 +5,7 @@ from __future__ import print_function
 from PyDAQmx import *
 import numpy as np
 import ctypes
-from getDeviceName import getDeviceName
+from PyDAQmx_Helper.pydaqmx_helper.getDeviceName import getDeviceName
 
 class Counter(Task):
 
