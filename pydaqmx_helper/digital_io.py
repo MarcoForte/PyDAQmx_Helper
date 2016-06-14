@@ -4,7 +4,7 @@
 from PyDAQmx import *
 import numpy as np
 import ctypes
-import getDeviceName
+from getDeviceName import getDeviceName
 
 
 class Digital_IO(Task):
@@ -15,7 +15,7 @@ class Digital_IO(Task):
     
     def __init__(self, port="0:1",  direction="output", deviceName=""):
         self.port = port
-        self.name = ((deviceName if deviceName != "" else self.getDeviceName()) + "/port" + str(port)).encode('utf-8')
+        self.name = ((deviceName if deviceName != "" else getDeviceName()) + "/port" + str(port)).encode('utf-8')
         self.direction = str(direction)
         Task.__init__(self)
 

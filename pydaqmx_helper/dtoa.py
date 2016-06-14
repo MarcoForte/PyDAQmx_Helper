@@ -4,15 +4,14 @@
 from PyDAQmx import *
 import numpy as np
 import ctypes
-import getDeviceName
-
+from getDeviceName import getDeviceName
 
 class DtoA(Task):
 
     """ Inherits the task class, and simplifies DtoA work"""
 
     def __init__(self, channel, deviceName=""):
-        self.name = ((deviceName if deviceName != "" else self.getDeviceName()) + "/ao" + str(channel)).encode('utf-8')
+        self.name = ((deviceName if deviceName != "" else getDeviceName()) + "/ao" + str(channel)).encode('utf-8')
         Task.__init__(self)
         self.CreateAOVoltageChan(self.name, b"", 0.0, 5.0, DAQmx_Val_Volts, None)
 
