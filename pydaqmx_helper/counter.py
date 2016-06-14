@@ -5,7 +5,7 @@ from __future__ import print_function
 from PyDAQmx import *
 import numpy as np
 import ctypes
-
+from pydaqmx_helper.getDeviceName import getDeviceName
 
 class Counter(Task):
 
@@ -14,7 +14,7 @@ class Counter(Task):
     """
     
     def __init__(self, deviceName=""):
-        self.name = ((deviceName if deviceName != "" else self.getDeviceName())+"/ctr0").encode('utf-8')
+        self.name = ((deviceName if deviceName != "" else getDeviceName())+"/ctr0").encode('utf-8')
         Task.__init__(self)
         self.CreateCICountEdgesChan(self.name, b"", DAQmx_Val_Falling, 0, DAQmx_Val_CountUp)
 
