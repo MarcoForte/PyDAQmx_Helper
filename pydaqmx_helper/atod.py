@@ -5,7 +5,7 @@ import numpy as np
 import ctypes
 from itertools import *
 from collections import OrderedDict
-import getDeviceName
+from getDeviceName import getDeviceName
 
 
 
@@ -14,7 +14,7 @@ class AtoD(Task):
     """ Small class to provide simplified reading to the analog ports using PyDAQmx package."""
 
     def __init__(self, deviceName=""):
-        self.name = (deviceName if deviceName != "" else self.getDeviceName()) + "/ai"
+        self.name = (deviceName if deviceName != "" else getDeviceName()) + "/ai"
         Task.__init__(self)
 
     # def addChannel(self, channel,  AtoD_mode=DAQmx_Val_RSE,  minRange=-10.0,  MaxRange=10.0):
